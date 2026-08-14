@@ -15,8 +15,11 @@ router.post('/', async (req, res) => {
     text: req.body.text,
     done: false,
   });
-  const added_todos = await get('added_todos');
-  set('added_todos', added_todos + 1);
+  let added_todos = await get('added_todos');
+  added_todos = parseInt(added_todos);
+  added_todos += 1;
+
+  set('added_todos', added_todos);
   res.send(todo);
 });
 
