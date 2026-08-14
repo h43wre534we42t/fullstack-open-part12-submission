@@ -16,7 +16,6 @@ router.post('/', async (req, res) => {
     done: false,
   });
   const added_todos = await get('added_todos');
-  console.log(added_todos);
   set('added_todos', added_todos + 1);
   res.send(todo);
 });
