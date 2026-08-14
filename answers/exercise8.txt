@@ -1,0 +1,96 @@
+~/U/f/t/todo-backend (main)> sudo docker exec -it todo-backend-mongo-1 bash
+root@c941bfad6a76:/# mongosh
+Current Mongosh Log ID: 6a7f00f4065f2f7d1204db4e
+Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          undefined
+Using Mongosh:          2.9.2
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+test> show dbs
+MongoServerError[Unauthorized]: Command listDatabases requires authentication
+test> show dbs -u root -p example
+MongoServerError[Unauthorized]: Command listDatabases requires authentication
+test> 
+(To exit, press Ctrl+C again or Ctrl+D or type .exit)
+test> 
+root@c941bfad6a76:/# mongosh -u root -p example
+Current Mongosh Log ID: 6a7f021902e6f5eef6a0af8d
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.9.2
+Using MongoDB:          8.2.12
+Using Mongosh:          2.9.2
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+------
+   The server generated these startup warnings when booting
+   2026-08-14T11:48:00.939+00:00: Soft rlimits for open file descriptors too low
+   2026-08-14T11:48:00.939+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-08-14T11:48:00.939+00:00: For customers running the current memory allocator, we suggest changing the contents of the following sysfsFile
+   2026-08-14T11:48:00.939+00:00: We suggest setting the contents of sysfsFile to 0.
+   2026-08-14T11:48:00.939+00:00: We suggest setting swappiness to 0 or 1, as swapping can cause performance problems.
+------
+
+test> show dbs
+admin         100.00 KiB
+config         48.00 KiB
+local          72.00 KiB
+the_database   68.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6a7e1ff4c14524b4c0838f2c'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('6a7e1ff4c14524b4c0838f2d'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6a7e2699cca4188a862304c1'),
+    text: 'Learn Express properly',
+    done: false,
+    __v: 0
+  }
+]
+the_database> db.todos.insertOne({text: 'Increase the number of tools in my tool belt', done: false})
+{
+  acknowledged: true,
+  insertedId: ObjectId('6a7f02b602e6f5eef6a0af8e')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6a7e1ff4c14524b4c0838f2c'),
+    text: 'Write code',
+    done: true
+  },
+  {
+    _id: ObjectId('6a7e1ff4c14524b4c0838f2d'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6a7e2699cca4188a862304c1'),
+    text: 'Learn Express properly',
+    done: false,
+    __v: 0
+  },
+  {
+    _id: ObjectId('6a7f02b602e6f5eef6a0af8e'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
+the_database> 
+
