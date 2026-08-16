@@ -1,14 +1,14 @@
 services:
   app:
-    image: todo-frontend
+    image: todo-front
     build:
       context: ./todo-frontend
-      dockerfile: todo-frontend/Dockerfile
+      dockerfile: Dockerfile
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - 8080:80
-    container_name: todo-frontend
+    container_name: todo-front
     depends_on:
       - server
   mongo:
