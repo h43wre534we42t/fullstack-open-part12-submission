@@ -1,13 +1,1 @@
-# React application
-
-This application is created with [Vite](https://vitest.dev/).
-
-Install dependencies with `npm install`
-
-You can run the application in development mode with `npm run dev`
-
-You can build static files for production release with `npm run build`
-
-## Environment variables
-
-Use env VITE_BACKEND_URL to set where the backend for this application is
+I had some issues on ex16 with permissions. I'm on Fedora 44 and it has SELinux which seemed to have been blocking access to directories in the containers. Adding a :Z tag helped before but on this exercise I couldn't figure out how to fix it so I did setenforce 0 before docker compose and that worked.
