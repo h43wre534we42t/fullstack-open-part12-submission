@@ -3,8 +3,6 @@ services:
     image: todo-frontend-dev
     volumes:
       - ./todo-frontend:/usr/src/app:Z
-    ports:
-      - 5173:5173
     container_name: todo-frontend-dev
     depends_on:
       - server
@@ -19,8 +17,7 @@ services:
       - app
   mongo:
     image: mongo
-    ports:
-      - 15000:27017
+
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -30,8 +27,6 @@ services:
       - ./todo-backend/mongo_data:/data/db:Z
   redis:
     image: redis
-    ports:
-      - 6379:6379
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ./todo-backend/redis_data:/data:Z
@@ -39,8 +34,6 @@ services:
     image: todo-backend-dev
     volumes:
       - ./todo-backend/:/usr/src/app:Z
-    ports:
-      - 3000:3000
     depends_on:
       - redis
       - mongo
