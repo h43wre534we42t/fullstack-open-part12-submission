@@ -15,11 +15,11 @@ router.post('/', async (req, res) => {
     text: req.body.text,
     done: false,
   });
-  let added_todos = await get('added_todos');
-  added_todos = parseInt(added_todos);
+
+  let added_todos = parseInt(await get('added_todos'), 10) || 0;
   added_todos += 1;
 
-  set('added_todos', added_todos);
+  await set('added_todos', added_todos);
   res.send(todo);
 });
 
@@ -35,7 +35,7 @@ const findByIdMiddleware = async (req, res, next) => {
 
 /* DELETE todo. */
 singleRouter.delete('/', async (req, res) => {
-  await req.todo.delete();
+  await req.todo.deleteOne();
   res.sendStatus(200);
 });
 

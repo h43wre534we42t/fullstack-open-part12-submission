@@ -4,7 +4,8 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const added_todos = await get('added_todos');
+  const added_todos = Number(await get('added_todos')) || 0;
+
   res.json({
     added_todos,
   });
